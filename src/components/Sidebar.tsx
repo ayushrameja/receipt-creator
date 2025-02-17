@@ -1,17 +1,21 @@
 import "../styles/sidebar.scss";
 import toggleIcon from "../assets/toggle-sidebar.svg";
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
-interface SidebarProps {
-  children?: React.ReactNode;
-}
+import ReceiptForm from "./ReceiptForm/ReceiptForm";
+import { SidebarProps } from "../interfaces/IReceipt";
+import ReceiptPreview from "./ReceiptPreview/ReceiptPreview";
 
-const Sidebar: React.FC<SidebarProps> = () => {
+const Sidebar: React.FC<SidebarProps> = ({
+  children,
+  receiptData,
+  setReceiptData,
+}) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleSidebar = useCallback(() => {
-    setIsCollapsed(!isCollapsed);
-  }, [isCollapsed]);
+    setIsCollapsed((prev) => !prev);
+  }, []);
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -33,13 +37,22 @@ const Sidebar: React.FC<SidebarProps> = () => {
     <div className={`sidebar-container ${isCollapsed ? "collapsed" : ""}`}>
       <div className="sidebar">
         <div className="sidebar-header">
+          <h2>Edit Receipt</h2>
           <button className="toggle-button" onClick={toggleSidebar}>
             <img src={toggleIcon} alt="Toggle sidebar" />
           </button>
         </div>
+        <div className="sidebar-content">
+          <ReceiptForm
+            receiptData={receiptData}
+            setReceiptData={setReceiptData}
+          />
+        </div>
+        {!isCollapsed && <div className="sidebar-content">{children}</div>}
       </div>
       <div className="main-content">
         <nav>
+          <h2>Receipt Preview</h2>
           {isCollapsed && (
             <button
               type="button"
@@ -51,6 +64,9 @@ const Sidebar: React.FC<SidebarProps> = () => {
             </button>
           )}
         </nav>
+        <div className="content-wrapper">
+          <ReceiptPreview receiptData={receiptData} />
+        </div>
       </div>
     </div>
   );
