@@ -9,10 +9,8 @@ const Receipt: React.FC<ReceiptProps> = ({
   date,
   tripCharge,
   rounding,
-  total,
   paymentMethod,
   paymentTime,
-  gstAmount,
   driverName,
   licensePlate,
   vehicleType,
@@ -23,6 +21,12 @@ const Receipt: React.FC<ReceiptProps> = ({
   dropTime,
   dropLocation,
 }) => {
+  // Calculate the total based on tripCharge and rounding
+  const total = tripCharge + rounding;
+  
+  // Calculate GST as 5.5% of the total
+  const gstAmount = total * 0.055;
+
   return (
     <div className="receipt-container">
       <div className="receipt-header">
@@ -72,10 +76,20 @@ const Receipt: React.FC<ReceiptProps> = ({
           </div>
           <span className="total">₹{total.toFixed(2)}</span>
         </div>
+
         <p className="visit-info">
-          <span className="underline">Visit the trip page</span> for more
-          information, including invoices (where available)
+          <a 
+            href="https://m.uber.com/go/home" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="underline"
+            style={{ textDecoration: 'none', color: 'blue', cursor: 'pointer' }}
+          >
+            Visit the trip page
+          </a>{" "}
+          for more information, including invoices (where available)
         </p>
+
         <p className="gst-info">
           The total of ₹{total.toFixed(2)} has a GST of ₹{gstAmount.toFixed(2)}{" "}
           included.
