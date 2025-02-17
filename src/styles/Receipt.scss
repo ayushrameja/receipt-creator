@@ -1,0 +1,237 @@
+.receipt-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem 3rem;
+
+  .receipt-header {
+    margin-bottom: 20px;
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #cccccc;
+
+      h1 {
+        font-size: 24px;
+        font-weight: normal;
+      }
+
+      .date {
+        color: black;
+        font-size: 0.55rem;
+      }
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-top: 20px;
+      font-weight: 400;
+      font-size: 1rem;
+    }
+
+    p {
+      color: #666;
+      margin-top: 10px;
+      font-size: 0.55rem;
+    }
+  }
+
+  .fare-breakdown {
+    margin-bottom: 30px;
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+
+      h3 {
+        font-size: 0.7rem;
+        font-weight: normal;
+      }
+
+      span {
+        font-size: 0.7rem;
+      }
+    }
+
+    .breakdown-details {
+      border-top: 1px solid #000;
+
+      .row-top {
+        padding: 15px 0 15px 0;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #ccc;
+
+        span {
+          font-size: 0.55rem;
+        }
+      }
+
+      .row-bottom {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 15px 0 15px 0;
+        border-bottom: 1px solid #ccc;
+
+        .nested-row {
+          display: flex;
+          justify-content: space-between;
+
+          span {
+            font-size: 0.55rem;
+          }
+        }
+      }
+    }
+  }
+
+  .payment-info {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 30px;
+
+    h3 {
+      margin-top: 20px;
+      font-size: 0.8rem;
+      margin-bottom: 15px;
+      font-weight: 400;
+    }
+
+    .payment-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .payment-method {
+        display: flex;
+        align-items: center;
+
+        .emoji {
+          margin-right: 10px;
+
+          img {
+            width: 20px;
+          }
+        }
+
+        .details {
+          .method {
+            font-size: 0.55rem;
+          }
+
+          .time {
+            margin-top: 5px;
+            color: #666;
+            font-size: 0.55rem;
+          }
+        }
+      }
+
+      .total {
+        font-size: 0.7rem;
+      }
+    }
+
+    .gst-info,
+    .visit-info {
+      color: #000;
+      font-size: 0.55rem;
+      margin-top: 15px;
+
+      .underline {
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+
+    .gst-info {
+      padding-bottom: 25px;
+    }
+  }
+
+  .ride-details {
+    margin-bottom: 10px;
+
+    .rider-info {
+      font-size: 0.55rem;
+      margin-bottom: 10px;
+    }
+
+    .license-plate {
+      color: #666;
+      font-size: 0.55rem;
+      margin-bottom: 20px;
+    }
+
+    .vehicle-info {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      span {
+        font-size: 0.55rem;
+      }
+    }
+
+    .trip-stats {
+      margin-top: 15px;
+
+      span {
+        margin-right: 15px;
+      }
+    }
+
+    .journey-details {
+      margin-top: 20px;
+      position: relative;
+
+      .location-point {
+        display: flex;
+        align-items: flex-start;
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 15px;
+
+        &:not(:last-child)::before {
+          content: "";
+          position: absolute;
+          left: 2px;
+          top: 10px;
+          width: 1px;
+          height: calc(100% + 12px);
+          background-color: #000;
+        }
+
+        .dot {
+          position: absolute;
+          left: 0;
+          top: 5px;
+          width: 5px;
+          height: 5px;
+          background-color: #000;
+          margin-right: 10px;
+        }
+
+        .location-info {
+          .address {
+            font-size: 0.55rem;
+            margin: 0;
+
+            span {
+              color: #666;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .footer-note {
+    color: #666;
+    font-size: 0.55rem;
+  }
+}
