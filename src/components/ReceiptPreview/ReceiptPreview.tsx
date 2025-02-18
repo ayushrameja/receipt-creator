@@ -1,33 +1,36 @@
 import React from "react";
-import "../styles/Receipt.scss";
-import cashLogo from "../assets/money.svg";
-import { ReceiptProps } from "../interfaces/Receipt";
-import uberLogo from "../assets/simple-icons_uber.svg";
+import "../../styles/receipt-preview.scss";
+import UberLogo from "../../assets/uber.png";
+import cashLogo from "../../assets/money.svg";
+import { ReceiptPreviewProps } from "../../interfaces/IReceipt";
 
-const Receipt: React.FC<ReceiptProps> = ({
-  customerName,
-  date,
-  tripCharge,
-  rounding,
-  total,
-  paymentMethod,
-  paymentTime,
-  gstAmount,
-  driverName,
-  licensePlate,
-  vehicleType,
-  distance,
-  duration,
-  pickupTime,
-  pickupLocation,
-  dropTime,
-  dropLocation,
-}) => {
+const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ receiptData }) => {
+  const {
+    date,
+    customerName,
+    total,
+    tripCharge,
+    rounding,
+    paymentMethod = "Cash",
+    paymentTime,
+    driverName,
+    licensePlate,
+    linkRedirect = "https://www.uber.com",
+    vehicleType,
+    distance,
+    duration,
+    pickupTime,
+    dropTime,
+    pickupLocation,
+    dropLocation,
+    gstAmount,
+  } = receiptData;
+
   return (
     <div className="receipt-container">
       <div className="receipt-header">
         <div className="header-top">
-          <img src={uberLogo} alt="Uber" style={{ height: "45px" }} />
+          <img src={UberLogo} alt="Uber" style={{ height: "65px" }} />
           <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
             <span className="date">{date}</span>
           </div>
@@ -35,6 +38,7 @@ const Receipt: React.FC<ReceiptProps> = ({
         <h2>Here's your receipt for your ride, {customerName}</h2>
         <p>We hope you enjoyed your ride this morning.</p>
       </div>
+
       <div className="fare-breakdown">
         <div className="total-row">
           <h3>Total</h3>
@@ -73,8 +77,10 @@ const Receipt: React.FC<ReceiptProps> = ({
           <span className="total">₹{total.toFixed(2)}</span>
         </div>
         <p className="visit-info">
-          <span className="underline">Visit the trip page</span> for more
-          information, including invoices (where available)
+          <a href={linkRedirect} className="underline">
+            Visit the trip page
+          </a>{" "}
+          for more information, including invoices (where available)
         </p>
         <p className="gst-info">
           The total of ₹{total.toFixed(2)} has a GST of ₹{gstAmount.toFixed(2)}{" "}
@@ -118,4 +124,4 @@ const Receipt: React.FC<ReceiptProps> = ({
   );
 };
 
-export default Receipt;
+export default ReceiptPreview;

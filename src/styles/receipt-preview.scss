@@ -1,21 +1,23 @@
 .receipt-container {
+  background-color: #fff;
+  padding: 1rem 3rem;
+  width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 1rem 3rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #333;
+  line-height: 1.5;
+  box-sizing: border-box;
 
   .receipt-header {
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
 
     .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 1.5rem;
       border-bottom: 1px solid #cccccc;
-
-      h1 {
-        font-size: 24px;
-        font-weight: normal;
-      }
 
       .date {
         color: black;
@@ -24,15 +26,14 @@
     }
 
     h2 {
-      font-size: 20px;
-      margin-top: 20px;
-      font-weight: 400;
       font-size: 1rem;
+      margin: 20px 0 0.5rem;
+      font-weight: 400;
     }
 
     p {
       color: #666;
-      margin-top: 10px;
+      margin: 10px 0 0;
       font-size: 0.55rem;
     }
   }
@@ -43,10 +44,12 @@
     .total-row {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 20px;
+      align-items: center;
+      margin-bottom: 1rem;
 
       h3 {
         font-size: 0.7rem;
+        margin: 0;
         font-weight: normal;
       }
 
@@ -59,7 +62,7 @@
       border-top: 1px solid #000;
 
       .row-top {
-        padding: 15px 0 15px 0;
+        padding: 15px 0;
         display: flex;
         justify-content: space-between;
         border-bottom: 1px solid #ccc;
@@ -73,7 +76,7 @@
         display: flex;
         flex-direction: column;
         gap: 5px;
-        padding: 15px 0 15px 0;
+        padding: 15px 0;
         border-bottom: 1px solid #ccc;
 
         .nested-row {
@@ -104,24 +107,22 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 1rem;
 
       .payment-method {
         display: flex;
         align-items: center;
+        gap: 1rem;
 
-        .emoji {
-          margin-right: 10px;
-
-          img {
-            width: 20px;
-          }
+        .emoji img {
+          width: 24px;
+          height: auto;
         }
 
         .details {
           .method {
             font-size: 0.55rem;
           }
-
           .time {
             margin-top: 5px;
             color: #666;
@@ -135,26 +136,28 @@
       }
     }
 
-    .gst-info,
     .visit-info {
       color: #000;
       font-size: 0.55rem;
       margin-top: 15px;
 
       .underline {
-        color: blue;
         text-decoration: underline;
         cursor: pointer;
+        color: blue;
       }
     }
 
     .gst-info {
+      color: #000;
+      font-size: 0.55rem;
+      margin-top: 15px;
       padding-bottom: 25px;
     }
   }
 
   .ride-details {
-    margin-bottom: 10px;
+    margin: 2rem 0;
 
     .rider-info {
       font-size: 0.55rem;
@@ -171,17 +174,10 @@
       display: flex;
       gap: 10px;
       align-items: center;
+      color: #666;
 
       span {
         font-size: 0.55rem;
-      }
-    }
-
-    .trip-stats {
-      margin-top: 15px;
-
-      span {
-        margin-right: 15px;
       }
     }
 
@@ -217,12 +213,14 @@
         }
 
         .location-info {
+          flex: 1;
+
           .address {
-            font-size: 0.55rem;
             margin: 0;
+            font-size: 0.55rem;
 
             span {
-              color: #666;
+              color: #333;
             }
           }
         }
@@ -233,5 +231,38 @@
   .footer-note {
     color: #666;
     font-size: 0.55rem;
+    margin: 2rem 0 0;
+  }
+
+  @media print {
+    box-shadow: none;
+    padding: 1rem;
+
+    .header-top img {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .dot {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+    font-size: 14px;
+
+    .receipt-header h2 {
+      font-size: 1.2rem;
+    }
+
+    .fare-breakdown .total-row {
+      font-size: 1rem;
+    }
+
+    .journey-details .location-point {
+      gap: 0.5rem;
+    }
   }
 }
