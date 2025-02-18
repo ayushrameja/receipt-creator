@@ -38,10 +38,11 @@ const Sidebar: React.FC<SidebarProps> = ({
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
         pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-        pdf.save("receipt.pdf");
+        const fileName = `Receipt_${receiptData.date}.pdf`;
+        pdf.save(fileName);
       });
     }
-  }, []);
+  }, [receiptData.date]);
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
