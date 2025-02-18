@@ -1,4 +1,7 @@
+import jsPDF from "jspdf";
 import "../styles/sidebar.scss";
+import html2canvas from "html2canvas";
+import downloadButton from "../assets/download.svg";
 import toggleIcon from "../assets/toggle-sidebar.svg";
 import React, { useState, useEffect, useCallback } from "react";
 
@@ -15,6 +18,29 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const toggleSidebar = useCallback(() => {
     setIsCollapsed((prev) => !prev);
+  }, []);
+
+  const handleDownloadPDF = useCallback(() => {
+    const receiptElement = document.querySelector(
+      ".receipt-container"
+    ) as HTMLElement;
+
+    if (receiptElement) {
+      html2canvas(receiptElement).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF({
+          orientation: "portrait",
+          unit: "mm",
+          format: "a4",
+        });
+
+        const imgWidth = 210;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+        pdf.save("receipt.pdf");
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -53,16 +79,26 @@ const Sidebar: React.FC<SidebarProps> = ({
       <div className="main-content">
         <nav>
           <h2>Receipt Preview</h2>
-          {isCollapsed && (
+          <div className="nav-buttons">
             <button
               type="button"
-              title="Toggle sidebar (⌘/Ctrl + Shift + S)"
+              title="Download PDF"
               className="toggle-button"
-              onClick={toggleSidebar}
+              onClick={handleDownloadPDF}
             >
-              <img src={toggleIcon} alt="Toggle sidebar" />
+              <img src={downloadButton} alt="Download PDF" />
             </button>
-          )}
+            {isCollapsed && (
+              <button
+                type="button"
+                title="Toggle sidebar (⌘/Ctrl + Shift + S)"
+                className="toggle-button"
+                onClick={toggleSidebar}
+              >
+                <img src={toggleIcon} alt="Toggle sidebar" />
+              </button>
+            )}
+          </div>
         </nav>
         <div className="content-wrapper">
           <ReceiptPreview receiptData={receiptData} />

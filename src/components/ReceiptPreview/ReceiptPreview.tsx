@@ -1,57 +1,125 @@
 import React from "react";
-import { ReceiptPreviewProps } from "../../interfaces/IReceipt";
 import "../../styles/receipt-preview.scss";
+import UberLogo from "../../assets/uber.png";
+import cashLogo from "../../assets/money.svg";
+import { ReceiptPreviewProps } from "../../interfaces/IReceipt";
 
 const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ receiptData }) => {
-  const currentDate = new Date().toLocaleDateString();
-  const currentTime = new Date().toLocaleTimeString();
+  const {
+    date = "December 12, 2024",
+    customerName = "Guest",
+    total = 0,
+    tripCharge = 0,
+    rounding = 0,
+    paymentMethod = "Cash",
+    paymentTime = new Date().toLocaleTimeString(),
+    driverName = "John",
+    licensePlate = "XX XX XX XXXX",
+    linkRedirect = "https://www.uber.com",
+    vehicleType = "Sedan",
+    distance = "0",
+    duration = "0",
+    pickupTime = "00:00",
+    dropTime = "00:00",
+    pickupLocation = "Pickup Location",
+    dropLocation = "Drop Location",
+    gstAmount = 0,
+  } = receiptData;
 
   return (
-    <div className="receipt-preview">
-      <div className="receipt-container">
-        <div className="receipt-header">
-          <div className="logo-placeholder">STORE NAME</div>
-          <div className="receipt-title">Sales Receipt</div>
-          <div>123 Business Street</div>
-          <div>City, State 12345</div>
-          <div>Tel: (555) 123-4567</div>
-        </div>
-
-        <div className="receipt-details">
-          <div className="detail-row">
-            <span className="label">Date:</span>
-            <span>{receiptData.date || currentDate}</span>
-          </div>
-          <div className="detail-row">
-            <span className="label">Time:</span>
-            <span>{receiptData.time || currentTime}</span>
-          </div>
-          <div className="detail-row">
-            <span className="label">Receipt #:</span>
-            <span>INV-{Math.floor(Math.random() * 10000)}</span>
+    <div className="receipt-container">
+      <div className="receipt-header">
+        <div className="header-top">
+          <img src={UberLogo} alt="Uber" style={{ height: "65px" }} />
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <span className="date">{date}</span>
           </div>
         </div>
+        <h2>Here's your receipt for your ride, {customerName}</h2>
+        <p>We hope you enjoyed your ride this morning.</p>
+      </div>
 
-        <div className="receipt-items">
-          <div className="item-row">
-            <span className="item-name">{receiptData.name || "Item"}</span>
-            <span className="item-amount">${receiptData.amount || "0.00"}</span>
-          </div>
+      <div className="fare-breakdown">
+        <div className="total-row">
+          <h3>Total</h3>
+          <span>₹{total.toFixed(2)}</span>
         </div>
-
-        <div className="receipt-total">
-          <div className="detail-row">
-            <span className="label">Total:</span>
-            <span>${receiptData.amount || "0.00"}</span>
+        <div className="breakdown-details">
+          <div className="row-top">
+            <span>Trip Charge</span>
+            <span>₹{tripCharge.toFixed(2)}</span>
           </div>
-        </div>
-
-        <div className="receipt-footer">
-          <div className="footer-text">Thank you for your business!</div>
-          <div className="footer-text">{receiptData.place || "Store Location"}</div>
-          <div className="footer-text">Please come again</div>
+          <div className="row-bottom">
+            <div className="nested-row">
+              <span>Subtotal</span>
+              <span>₹{tripCharge.toFixed(2)}</span>
+            </div>
+            <div className="nested-row">
+              <span>Rounding</span>
+              <span>₹{rounding.toFixed(2)}</span>
+            </div>
+          </div>
         </div>
       </div>
+
+      <div className="payment-info">
+        <h3>Payments</h3>
+        <div className="payment-row">
+          <div className="payment-method">
+            <span className="emoji">
+              <img src={cashLogo} alt="Cash" />
+            </span>
+            <div className="details">
+              <div className="method">{paymentMethod}</div>
+              <div className="time">{paymentTime}</div>
+            </div>
+          </div>
+          <span className="total">₹{total.toFixed(2)}</span>
+        </div>
+        <p className="visit-info">
+          <a href={linkRedirect} className="underline">
+            Visit the trip page
+          </a>{" "}
+          for more information, including invoices (where available)
+        </p>
+        <p className="gst-info">
+          The total of ₹{total.toFixed(2)} has a GST of ₹{gstAmount.toFixed(2)}{" "}
+          included.
+        </p>
+      </div>
+
+      <div className="ride-details">
+        <p className="rider-info">You rode with {driverName}</p>
+        <p className="license-plate">License Plate: {licensePlate}</p>
+        <div className="vehicle-info">
+          <span>{vehicleType}</span>
+          <span>
+            {distance} kilometers | {duration} min
+          </span>
+        </div>
+        <div className="journey-details">
+          <div className="location-point">
+            <div className="dot"></div>
+            <div className="location-info">
+              <p className="address">
+                {pickupTime} | <span>{pickupLocation}</span>
+              </p>
+            </div>
+          </div>
+          <div className="location-point">
+            <div className="dot"></div>
+            <div className="location-info">
+              <p className="address">
+                {dropTime} | <span>{dropLocation}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p className="footer-note">
+        Fares are inclusive of GST. Please download the tax invoice from the
+        trip detail page for a full tax breakdown.
+      </p>
     </div>
   );
 };

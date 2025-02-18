@@ -1,9 +1,22 @@
 export interface IReceipt {
-  name: string;
-  amount: string;
   date: string;
-  time: string;
-  place: string;
+  customerName: string;
+  total: number;
+  tripCharge: number;
+  rounding: number;
+  paymentMethod: string;
+  paymentTime: string;
+  driverName: string;
+  licensePlate: string;
+  vehicleType: string;
+  distance: string;
+  duration: string;
+  pickupTime: string;
+  dropTime: string;
+  pickupLocation: string;
+  dropLocation: string;
+  gstAmount: number;
+  linkRedirect: string;
 }
 
 export interface SidebarProps {
